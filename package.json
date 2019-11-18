@@ -1,0 +1,29 @@
+{
+  "name": "GitMyStats",
+  "version": "1.0.0",
+  "description": "A Next.js app to fetch github statistics.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Imran31/GitMyStats.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Imran31/GitMyStats/issues"
+  },
+  "homepage": "https://github.com/Imran31/GitMyStats#readme",
+  "dependencies": {
+    "isomorphic-unfetch": "^3.0.0",
+    "next": "^9.1.3",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  }
+}
