@@ -1,31 +1,57 @@
 import Layout from '../components/Layout';
-import BasicInfo from '../components/BasicInfo';
+import Footer from '../components/Footer';
+import Router from 'next/router';
+import { useState } from 'react';
+
+
+const Form = () => {
+    const [username, setUsername] = useState('');
+    const handleChange = e => setUsername(e.target.value);
+
+    return (
+        <div className="main">
+            <form onSubmit={ e => {
+                                    e.preventDefault();
+                                    Router.push({
+                                        pathname: '/stats',
+                                        query: { login: username },
+                                    });
+                                }
+                }>
+                <p className="text-center">Enter any Github username to visualize statistics</p>
+                <fieldset>
+                    <div className="form-group" align="center" >
+                        <input name="username" className="form-control" type="text" onChange={ handleChange } />
+                        <br></br>
+                        <button className="btn btn-primary">Submit</button>
+                    </div>
+                </fieldset>
+            </form>
+            <style jsx>
+            {`
+                .main {
+                    margin-top: 100%;
+                }
+            `}
+            </style>
+        </div>
+        
+    )
+}
 
 const Index = (props) => {
     return (
         <div>
-            <p>{props.data.name}</p>
-            <p>{props.data.login}</p>
-            <p>{props.data.public_repos}</p>
-            <p>{props.data.followers}</p>
-            <p>{props.data.location}</p>
-            <p>{props.data.created_at}</p>
-            <p>{props.data.avatar_url}</p>
-            <p>Hello</p>
+            <Layout>
+                <div className="container">
+                    <div className="col-md-4 offset-md-4">
+                        <Form />
+                    </div>
+                    
+                </div>
+            </Layout> 
         </div>
     )
 }
-
-Index.getInitialProps = async function() {
-    console.log('Fetching...')
-    const res = await fetch('https://api.github.com/users/imran31');
-    const data = await res.json();
-    console.log(data);
-    console.log(`Show data fetched. Count: ${data.length}`);
-
-    return {
-        data
-    };
-};
   
 export default Index;

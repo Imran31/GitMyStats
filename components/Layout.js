@@ -1,8 +1,9 @@
+import "bootswatch/dist/lux/bootstrap.min.css"; 
+
 const Layout = (props) => {
     return (
         <div>
-            <title>GitMyStats</title>
-            {props.children}
+            { props.children }
         </div>
     )
 }
