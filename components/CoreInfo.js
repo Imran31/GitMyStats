@@ -2,6 +2,7 @@ import { Pie, Bar, Doughnut } from 'react-chartjs-2';
 import Octicon, {Repo, Star, RepoForked} from '@primer/octicons-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
+import sortby from 'lodash.sortby';
 
 const CoreInfo = (props) => {
 
@@ -259,8 +260,17 @@ const calculateStarPerRepository = (repoData, limit) => {
 
 const generatePieChartLanguageData = (languangeData) => {
     delete languangeData[null];
-    const languageNames = Object.keys(languangeData)
-    const languageCount = Object.values(languangeData)
+    let topLanguages = []
+    const l = {language: null, count: null}
+    Object.keys(languangeData).forEach( key => {
+        let new_l = Object.create(l);
+        new_l.language = key;
+        new_l.count = languangeData[key];
+        topLanguages.push(new_l);
+    });
+    topLanguages = sortby(topLanguages, "count").splice(topLanguages.length - 7 ,topLanguages.length);
+    const languageNames = topLanguages.map(d => { return d.language })
+    const languageCount = topLanguages.map(d => { return d.count })
     
     const data = {
         labels: languageNames,
@@ -292,8 +302,18 @@ const generatePieChartLanguageData = (languangeData) => {
 
 const generatePieChartStarsPerLanguageData = (starPerLanguage) => {
     delete starPerLanguage[null];
-    const languageNames = Object.keys(starPerLanguage)
-    const starCount = Object.values(starPerLanguage)
+    let topLanguages = []
+    const l = {language: null, stars: null}
+    Object.keys(starPerLanguage).forEach( (key,index) => {
+        let new_l = Object.create(l);
+        new_l.language = key;
+        new_l.stars = starPerLanguage[key];
+        topLanguages.push(new_l);
+    });
+    topLanguages = sortby(topLanguages, "stars").splice(topLanguages.length - 7 ,topLanguages.length);
+
+    const languageNames = topLanguages.map(d => { return d.language })
+    const starCount = topLanguages.map(d => { return d.stars })
     
     const data = {
         labels: languageNames,
